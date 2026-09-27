@@ -55,6 +55,55 @@ class LinkedList:
         self.length += 1
         return True
 
+    def pop_first(self):
+        temp = self.head
+        if self.length <= 1:
+            self.head = None
+            self.tail = None
+            self.length = 0
+        else:
+            self.head = self.head.next
+            temp.next = None
+            self.length -= 1
+        return temp
+
+    def get(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        temp = self.head
+        for _ in range(index):
+            temp = temp.next
+        return temp
+
+    def set_value(self, index, value):
+        temp = self.get(index)
+        if temp:
+            temp.value =value
+            return True
+        return False
+
+    def insert(self, index, value):
+        if index < 0 or index >= self.length:
+            return False
+        elif index == 0:
+            return self.prepend(value)
+        elif self.length == index:
+            return self.append(value)
+
+        temp = Node(value)
+        temp.next = self.get(index)
+
+        for i in range(self.length):
+            if i.next == self.get(index):
+                i.next = temp
+
+        
+
+
+        
+    
+
+
 mls = LinkedList(4)
 mls.append(3)
 mls.append(5)
