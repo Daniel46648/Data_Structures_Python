@@ -83,29 +83,45 @@ class LinkedList:
         return False
 
     def insert(self, index, value):
-        if index < 0 or index >= self.length:
+        if index < 0 or index > self.length:
             return False
-        elif index == 0:
+        if index == 0:
             return self.prepend(value)
-        elif self.length == index:
+        if self.length == index:
             return self.append(value)
 
         temp = Node(value)
-        temp.next = self.get(index)
+        pre = self.get(index - 1)
 
-        for i in range(self.length):
-            if i.next == self.get(index):
-                i.next = temp
+        temp.next = pre.next
+        pre.next = temp
+        self.length += 1
+        return True
 
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        if self.index == 0:
+            return self.pop_first()
+        if index == self.length - 1:
+            return self.pop()
         
+        pre = self.get(index - 1)
+        temp = pre.next
+        pre.next = temp.next
+        temp.next = None
+        self.length -= 1
+        return temp
 
+    def reverse(self):
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+        after = temp.next
+        before = None
 
-        
-    
-
-
-mls = LinkedList(4)
-mls.append(3)
-mls.append(5)
-mls.prepend(1)
-mls.print_list()
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
