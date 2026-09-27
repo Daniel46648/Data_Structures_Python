@@ -125,3 +125,5 @@ class LinkedList:
             temp.next = before
             before = temp
             temp = after
+
+#This was it with the Linked Lists
